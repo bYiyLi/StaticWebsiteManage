@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.db.sql.ItemPropertyMapper">
+    <select id="getItemPropertyById" resultType="com.example.db.core.ItemProperty">
+        select * from item_property_table where id=#{id};
+    </select>
+    <insert id="addItemProperty" parameterType="com.example.db.core.ItemProperty">
+        insert into item_property_table (id, name, type, content) VALUE (#{id},#{name},#{type},#{content});
+    </insert>
+    <delete id="delItemProperty" parameterType="map">
+        delete from item_property_table
+        <where>
+            <if test="id != null">
+                id=#{id}
+            </if>
+            <if test="name != null">
+                AND name = #{name}
+            </if>
+            <if test="type!=null">
+                AND type=#{type}
+            </if>
+            <if test="content!=null">
+                AND content like concat('%',#{content},'%')
+            </if>
+        </where>
+        ;
+    </delete>
+</mapper>
