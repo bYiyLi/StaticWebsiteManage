@@ -2,14 +2,14 @@ package com.example.db.core;
 
 import java.util.List;
 
-public class MdItem {
+public class Md {
     int id;
     String name;
     String url;
     List<String> property;
     List<Integer> groups;
 
-    public MdItem(int id, String name) {
+    public Md(int id, String name) {
         this.id = id;
         this.name = name;
     }

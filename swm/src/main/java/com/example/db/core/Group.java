@@ -7,12 +7,17 @@ public class Group {
     String name;
     String url;
     List<Group> groups;
-    List<MdItem> mds;
+    List<Md> mds;
     List<String> property;
     public Group(int id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
+    }
+
+    public Group(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     @Override
@@ -22,11 +27,6 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
-    }
-
-    public Group(int id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Group() {
@@ -72,11 +72,11 @@ public class Group {
         this.groups = groups;
     }
 
-    public List<MdItem> getMds() {
+    public List<Md> getMds() {
         return mds;
     }
 
-    public void setMds(List<MdItem> mds) {
+    public void setMds(List<Md> mds) {
         this.mds = mds;
     }
 }
