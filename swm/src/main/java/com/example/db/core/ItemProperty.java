@@ -6,9 +6,6 @@ public class ItemProperty {
     String type;
     String content;
 
-    public ItemProperty() {
-
-    }
 
     @Override
     public String toString() {
@@ -45,17 +42,5 @@ public class ItemProperty {
 
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

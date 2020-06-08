@@ -8,9 +8,6 @@ public class Item {
     private String type;
     private String url;
 
-    public Item() {
-    }
-
     public Item(int id, String name, String type, String url) {
         this.id = id;
         this.name = name;

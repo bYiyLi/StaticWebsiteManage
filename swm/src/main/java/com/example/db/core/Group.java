@@ -9,6 +9,55 @@ public class Group {
     List<Group> groups;
     List<Md> mds;
     List<String> property;
+    @Override
+    public String toString() {
+        StringBuilder groupStr=new StringBuilder();
+        groupStr.append("[");
+        if (groups!=null){
+            for (Group i:groups){
+                groupStr.append("{\"id\":\"").append(i.getId())
+                        .append("\",\"name\":\"").append(i.getName())
+                        .append("\",\"url\":\"").append(i.getUrl()).append("\"},");
+            }
+            groupStr.delete(groupStr.length()-1, groupStr.length());
+        }
+        groupStr.append("]");
+
+        StringBuilder propertyStr=new StringBuilder();
+        propertyStr.append("[");
+        if (property!=null){
+            for (String i:property){
+                String[] split = i.split("#");
+                if (split.length>1){
+                    propertyStr.append("{\"name\":\"").append(split[0])
+                            .append("\",\"content\":\"").append(split[1]).append("\"},");
+                }else {
+                    propertyStr.append("{\"name\":\"").append(" ")
+                            .append("\",\"content\":\"").append(split[0]).append("\"},");
+                }
+            }
+            propertyStr.delete(propertyStr.length()-1, propertyStr.length());
+        }
+        propertyStr.append("]");
+
+        StringBuilder mdStr=new StringBuilder();
+        mdStr.append("[");
+        if (mds!=null){
+            for (Md i:mds){
+                mdStr.append("{\"id\":\"").append(i.getId())
+                        .append("\",\"name\":\"").append(i.getName())
+                        .append("\",\"url\":\"").append(i.getUrl()).append("\"},");
+            }
+            mdStr.delete(mdStr.length()-1, mdStr.length());
+        }
+        mdStr.append("]");
+        return '{' + "\"id\":\"" + id + "\"," +
+                "\"name\":\"" + name + "\"," +
+                "\"url\":\"" + url + "\"," +
+                "\"propertyList\":" + propertyStr.toString() + "," +
+                "\"groupList\":" + groupStr.toString() + "," +
+                "\"mdList\":" + mdStr.toString() + '}';
+    }
     public Group(int id, String name, String url) {
         this.id = id;
         this.name = name;
@@ -20,14 +69,7 @@ public class Group {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Group{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+
 
     public Group() {
     }

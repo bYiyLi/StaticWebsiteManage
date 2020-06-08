@@ -5,6 +5,7 @@ import com.example.db.sql.ItemPropertyMapper;
 import com.example.db.sql.SqlFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,10 +16,14 @@ import java.util.Map;
 @Service("groupHandle")
 public class GroupHandle implements GroupDb {
     final
+    NewItemId newItemId;
+
+    final
     SqlFactory sqlFactory;
 
-    public GroupHandle(SqlFactory sqlFactory) {
+    public GroupHandle(SqlFactory sqlFactory, NewItemId newItemId) {
         this.sqlFactory = sqlFactory;
+        this.newItemId = newItemId;
     }
 
 
@@ -46,7 +51,7 @@ public class GroupHandle implements GroupDb {
                         break;
                     }
                     case "md":{
-                        mdList.add(new Md(Integer.parseInt(ip.content),ip.name));
+                        mdList.add(new Md(Integer.parseInt(ip.content),ip.name, item.getUrl()));
                         break;
                     }
                     case "property":{
@@ -105,7 +110,7 @@ public class GroupHandle implements GroupDb {
         SqlSessionFactory factory = sqlFactory.getFactory();
         try (SqlSession sqlSession = factory.openSession()){
             ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
-            mapper.addItem(new Item(getNewId(),name,"group",url));
+            mapper.addItem(new Item(newItemId.getNewId(),name,"group",url));
             sqlSession.commit();
         }
     }
@@ -117,11 +122,10 @@ public class GroupHandle implements GroupDb {
             ItemPropertyMapper propertyMapper = sqlSession.getMapper(ItemPropertyMapper.class);
             String[] split = content.split("#");
             if (split.length>1){
-                propertyMapper.addItemProperty(new ItemProperty(id,split[0],"property",split[1]));
+                propertyMapper.addItemProperty(new ItemProperty(id,split[0].trim(),"property",split[1].trim()));
             }else {
-                propertyMapper.addItemProperty(new ItemProperty(id," ","property",content));
+                propertyMapper.addItemProperty(new ItemProperty(id," ","property",content.trim()));
             }
-            propertyMapper.addItemProperty(new ItemProperty());
         }
     }
 
@@ -135,10 +139,10 @@ public class GroupHandle implements GroupDb {
             map.put("id",id);
             map.put("type","property");
             if (split.length>1){
-                map.put("name",split[0]);
-                map.put("content",split[1]);
+                map.put("content",split[1].trim());
+                map.put("name",split[0].trim());
             }else {
-                map.put("content",split[0]);
+                map.put("content",split[0].trim());
             }
             propertyMapper.delItemProperty(map);
             sqlSession.commit();
@@ -174,19 +178,4 @@ public class GroupHandle implements GroupDb {
         }
     }
 
-    private int getNewId(){
-        SqlSessionFactory factory = sqlFactory.getFactory();
-        try (SqlSession sqlSession = factory.openSession()){
-            ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
-            while (true){
-                Item item = mapper.getItemById(GroupHandle.id);
-                if (item==null){
-                    return GroupHandle.id;
-                }
-                GroupHandle.id++;
-            }
-
-        }
-    }
-    static int id=0;
 }

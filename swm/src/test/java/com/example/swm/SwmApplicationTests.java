@@ -21,28 +21,25 @@ class SwmApplicationTests {
     @Test
     void contextLoads() {
         Group group = new Group(90,"YI","/yi");
-        List<String> p=new ArrayList<>();
-        p.add("p0");
-        p.add("p1");
-        p.add("p2");
-        p.add("p3");
-        List<Md> m=new ArrayList<>();
-        m.add(new Md(10,"m0"));
-        m.add(new Md(11,"m1"));
-        m.add(new Md(12,"m2"));
-        List<Group> g=new ArrayList<>();
-        g.add(new Group(20,"g0"));
-        g.add(new Group(21,"g1"));
-        g.add(new Group(22,"g2"));
-        g.add(new Group(23,"g3"));
-        group.setMds(m);
-        group.setGroups(g);
+        ArrayList<Group> groups = new ArrayList<>();
+        groups.add(new Group(90,"YI","/yi"));
+        groups.add(new Group(90,"YI","/yi"));
+        groups.add(new Group(90,"YI","/yi"));
+        group.setGroups(groups);
+
+        ArrayList<Md> mdArrayList = new ArrayList<>();
+        mdArrayList.add(new Md(90,"YI","/yi"));
+        mdArrayList.add(new Md(90,"YI","/yi"));
+        mdArrayList.add(new Md(90,"YI","/yi"));
+        group.setMds(mdArrayList);
+
+        ArrayList<String> p=new ArrayList<>();
+        p.add("a#a1");
+        p.add("a#a1");
+        p.add("a#a1");
+        p.add("a#a1");
         group.setProperty(p);
-        Group groupById = groupHandle.getGroupById(2);
-        System.out.println(groupById.toString());
-        groupById.getGroups().forEach(System.out::println);
-        groupById.getMds().forEach(System.out::println);
-        groupById.getProperty().forEach(System.out::println);
+        System.out.println(group.toString());
     }
 
 }
