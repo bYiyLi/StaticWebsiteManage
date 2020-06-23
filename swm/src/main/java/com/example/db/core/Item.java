@@ -1,7 +1,4 @@
 package com.example.db.core;
-
-import org.apache.ibatis.annotations.Param;
-
 public class Item {
     private int id;
     private String name;

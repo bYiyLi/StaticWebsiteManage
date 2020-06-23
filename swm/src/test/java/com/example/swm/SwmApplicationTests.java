@@ -1,6 +1,7 @@
 package com.example.swm;
 
 import com.example.db.core.*;
+import com.example.service.GuidPool;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,6 +41,24 @@ class SwmApplicationTests {
         p.add("a#a1");
         group.setProperty(p);
         System.out.println(group.toString());
+    } @Test
+    void c1ontextLoads() {
+        Md group = new Md(90,"YI","/yi");
+        ArrayList<String> p=new ArrayList<>();
+        p.add("a#a1");
+        p.add("a#a1");
+        p.add("a#a1");
+        p.add("a#a1");
+        group.setProperty(p);
+        System.out.println(group.toString());
+    }
+    @Autowired
+    GuidPool guidPool;
+    @Test
+    void c1osntextLoads() {
+        for (int n=0;n<1000;n++){
+            System.out.println(guidPool.getGuid());
+        }
     }
 
 }

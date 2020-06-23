@@ -1,0 +1,76 @@
+<div>
+    Loading
+</div>
+
+<!--<script>
+	const socket = null;
+	const ip_port="192.168.1.222:8888";
+	window.onload=function () {
+	    if (typeof (WebSocket) == "undefined") {
+	        console.log("您的浏览器不支持WebSocket");
+	    } else {
+	        console.log("您的浏览器支持WebSocket");
+	        var socketUrl = "ws://"+ip_port+"/blog_api";
+	        console.log(socketUrl);
+	        if (this.socket != null) {
+	            this.socket.close();
+	            this.socket = null;
+	        }
+	        this.socket = new WebSocket(socketUrl);
+	        //打开事件
+	        this.socket.onopen = function () {
+	            console.log("websocket已打开");
+	        };
+	        //获得消息事件
+	        this.socket.onmessage = serverMsg;
+	        //关闭事件
+	        this.socket.onclose = function () {
+	            console.log("websocket已关闭");
+	        };
+	        //发生了错误事件
+	        this.socket.onerror = function () {
+	            console.log("err");
+	        }
+	    }
+	}
+	function sendMeg(meg){
+	    if(typeof(WebSocket) == "undefined")
+	    {
+	        console.log("您的浏览器不支持WebSocket");
+	    }else {
+	        console.log(meg);
+	        this.socket.send(meg);
+	    }
+	}
+	function serverMsg(msg){
+	    const serverMsg = msg.data;
+	    const jsonObj = $.parseJSON(serverMsg);
+	    switch (jsonObj.type) {
+	        case 'div':{
+	            replaceDiv(jsonObj.div_id,jsonObj.content);
+	            break;
+	        }
+	        case 'js':{
+	            loadJs(jsonObj.content);break;
+	        }
+	    }
+	    console.log(jsonObj)
+	}
+	function replaceDiv(oldNode,newHtml){
+	    var old=document.getElementById(oldNode); //提取老元素；
+	    var newNode=document.createElement("div");//创建一个新的节点；
+	    newNode.innerHTML=newHtml;//把旧的oldnode内容赋值给新的newnode，要不然newnode是无内容，只是简单的改了个属性，把b变成了i，显示出来的是空；
+	    old.parentNode.replaceChild(newNode,old);
+	}
+	function loadJs(src){
+	    //得到html的头部dom
+	    var theHead = document.getElementsByTagName('head').item(0);
+	    //创建脚本的dom对象实例
+	    var myScript = document.createElement('script');
+	    myScript.src = src;           //指定脚本路径
+	    myScript.type = 'text/javascript';  //指定脚本类型
+	    myScript.defer = true;              //程序下载完后再解析和执行
+	    theHead.appendChild(myScript);      //把dom挂载到头部
+	}
+
+</script>

@@ -123,12 +123,14 @@ public class MdHandle  implements MdDb {
     }
 
     @Override
-    public void addMd(String name, String url) {
+    public Integer addMd(String name, String url) {
         SqlSessionFactory factory = sqlFactory.getFactory();
         try (SqlSession sqlSession = factory.openSession()){
             ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
-            mapper.addItem(new Item(newItemId.getNewId(),name,"md",url));
+            int newId = newItemId.getNewId();
+            mapper.addItem(new Item(newId,name,"md",url));
             sqlSession.commit();
+            return newId;
         }
     }
 }

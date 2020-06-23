@@ -10,12 +10,27 @@ public class Md {
 
     @Override
     public String toString() {
-        return "MdItem{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", url='" + url + '\'' +
-                ", property=" + property +
-                '}';
+        StringBuilder propertyStr=new StringBuilder();
+        propertyStr.append("[");
+        if (property!=null){
+            for (String i:property){
+                String[] split = i.split("#");
+                if (split.length>1){
+                    propertyStr.append("{\"name\":\"").append(split[0])
+                            .append("\",\"content\":\"").append(split[1]).append("\"},");
+                }else {
+                    propertyStr.append("{\"name\":\"").append(" ")
+                            .append("\",\"content\":\"").append(split[0]).append("\"},");
+                }
+            }
+            propertyStr.delete(propertyStr.length()-1, propertyStr.length());
+        }
+        propertyStr.append("]");
+
+        return '{' + "\"id\":\"" + id + "\"," +
+                "\"name\":\"" + name + "\"," +
+                "\"url\":\"" + url + "\"," +
+                "\"propertyList\":" + propertyStr.toString() + '}';
     }
     public Md(int id, String name, String url) {
         this.id = id;

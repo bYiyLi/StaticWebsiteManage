@@ -15,7 +15,7 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="item_mapper.xml"/>
-        <mapper resource="item_property_mapper.xml"/>
+        <mapper resource="mapper/item_mapper.xml"/>
+        <mapper resource="mapper/item_property_mapper.xml"/>
     </mappers>
 </configuration>

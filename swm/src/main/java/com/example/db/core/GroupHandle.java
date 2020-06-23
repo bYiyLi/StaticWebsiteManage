@@ -5,7 +5,6 @@ import com.example.db.sql.ItemPropertyMapper;
 import com.example.db.sql.SqlFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +25,19 @@ public class GroupHandle implements GroupDb {
         this.newItemId = newItemId;
     }
 
+
+    @Override
+    public boolean isGroupType(int id) {
+        SqlSessionFactory factory = sqlFactory.getFactory();
+        try (SqlSession sqlSession = factory.openSession()) {
+            ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
+            Item item = mapper.getItemById(id);
+            if (item!=null&&item.getType().equals("group")){
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     public Group getGroupById(int id) {
@@ -106,12 +118,14 @@ public class GroupHandle implements GroupDb {
     }
 
     @Override
-    public void addGroup(String name, String url) {
+    public Integer addGroup(String name, String url) {
         SqlSessionFactory factory = sqlFactory.getFactory();
         try (SqlSession sqlSession = factory.openSession()){
             ItemMapper mapper = sqlSession.getMapper(ItemMapper.class);
-            mapper.addItem(new Item(newItemId.getNewId(),name,"group",url));
+            int newId = newItemId.getNewId();
+            mapper.addItem(new Item(newId,name,"group",url));
             sqlSession.commit();
+            return newId;
         }
     }
 

@@ -36,7 +36,9 @@ public class Group {
                             .append("\",\"content\":\"").append(split[0]).append("\"},");
                 }
             }
-            propertyStr.delete(propertyStr.length()-1, propertyStr.length());
+            if (property.size()>0){
+                propertyStr.delete(propertyStr.length()-1, propertyStr.length());
+            }
         }
         propertyStr.append("]");
 
