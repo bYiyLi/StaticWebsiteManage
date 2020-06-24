@@ -1,4 +1,4 @@
-package com.example.service.node;
+package com.example.db.node;
 
 public class text {
     public static void main(String[] args) {

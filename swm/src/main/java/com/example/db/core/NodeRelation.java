@@ -1,10 +1,10 @@
 package com.example.db.core;
 
-public class NodeMapper {
+public class NodeRelation {
     private int pid;
     private int cid;
 
-    public NodeMapper(int pid, int cid) {
+    public NodeRelation(int pid, int cid) {
         this.pid = pid;
         this.cid = cid;
     }

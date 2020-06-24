@@ -60,5 +60,15 @@ class SwmApplicationTests {
             System.out.println(guidPool.getGuid());
         }
     }
+    @Test
+
+        void test() {
+        System.out.println("aa");
+
+        }
+
+    public static void main(String[] args) {
+
+    }
 
 }
